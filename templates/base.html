@@ -1,0 +1,14 @@
+{% load render_bundle from webpack_loader %}
+{% load staticfiles %}
+<html lang='fr'>
+    <head>
+        <meta charset="UTF-8">
+        <title>bukkakegram V2 - {% block title %}{% endblock %}</title>
+        {% render_bundle 'app' 'css' %}
+       <body>
+        {% block content %}
+        {% endblock %}
+        {% render_bundle 'app' 'js' %}
+       </body>
+    </head>
+</html>

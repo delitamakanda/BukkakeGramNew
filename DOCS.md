@@ -1,0 +1,1 @@
+https://github.com/jackeyGao/django-vuejs
