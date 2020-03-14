@@ -1,6 +1,6 @@
 var BundleTracker = require("webpack-bundle-tracker");
 
-var DEPLOYMENT_PATH = '/static/dist/';
+var DEPLOYMENT_PATH = '/static/';
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : 'http://localhost:8080/',
