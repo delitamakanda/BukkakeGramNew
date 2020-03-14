@@ -68,3 +68,5 @@ webencodings==0.5.1
 whitenoise==3.3.1
 zipp==3.1.0
 zope.interface==4.7.2
+hellowebapp-deploy==1.0.2
+psycopg2-binary
