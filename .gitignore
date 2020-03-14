@@ -1,0 +1,7 @@
+bukkakegram/
+venv/
+.env
+.vscode/
+
+node_modules/
+db.sqlite3
