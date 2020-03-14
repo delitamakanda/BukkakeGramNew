@@ -30,10 +30,10 @@ jobs:
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
       - run:
-        name: run tests
-        command: |
-          . venv/bin/activate
-          python manage.py test
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python manage.py test
 
       - store_artifacts:
           path: test-reports
