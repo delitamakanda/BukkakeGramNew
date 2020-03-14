@@ -19,7 +19,6 @@ coreschema==0.0.4
 cryptography==2.8
 daphne==1.4.2
 Django==2.2.11
-django-channels==0.7.0
 django-channels-presence==0.0.9
 django-cors-headers==3.2.1
 django-rest-swagger==2.2.0
