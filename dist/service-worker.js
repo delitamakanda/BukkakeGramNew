@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/static/precache-manifest.a56c22a5ee92f718eef1b19a683bb163.js"
+  "/static/precache-manifest.48a23fed2f4efc38102d35981c594925.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "bukkakegram-v2"});

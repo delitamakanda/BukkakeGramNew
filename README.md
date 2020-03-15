@@ -1,4 +1,5 @@
 # bukkakegram-v2
+[![CircleCI](https://circleci.com/gh/delitamakanda/Bukkakegram/tree/master.svg?style=svg)](https://circleci.com/gh/delitamakanda/Bukkakegram/tree/master)
 
 ## Project setup
 ```

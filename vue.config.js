@@ -3,8 +3,9 @@ var BundleTracker = require("webpack-bundle-tracker");
 var DEPLOYMENT_PATH = '/static/';
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : '',
+    publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : 'http://localhost:8080/',
     outputDir: './dist',
+    assetsDir: 'static',
 
     chainWebpack: config => {
 
@@ -23,5 +24,10 @@ module.exports = {
             .watchOptions({poll: 1000})
             .https(false)
             .headers({"Access-Control-Allow-Origin": ["\*"]})
+            .proxy({
+                '/': {
+                    target: 'http://localhost:8000/'
+                }
+            })
     }
 }
