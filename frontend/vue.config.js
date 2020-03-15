@@ -4,7 +4,7 @@ var DEPLOYMENT_PATH = '/static/dist/';
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : 'http://localhost:8080/',
-    outputDir: './dist/',
+    outputDir: process.env.NODE_ENV === 'production' ? '../static/dist/' : './dist',
 
     chainWebpack: config => {
 
