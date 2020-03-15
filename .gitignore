@@ -2,6 +2,8 @@ bukkakegram/
 venv/
 .env
 .vscode/
+__pycache__
+.pyc
 
 node_modules/
 db.sqlite3

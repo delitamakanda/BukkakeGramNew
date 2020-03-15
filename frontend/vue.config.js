@@ -4,12 +4,9 @@ var DEPLOYMENT_PATH = '/static/dist/';
 
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : 'http://localhost:8080/',
-    outputDir: '../static/dist/',
+    outputDir: './dist/',
 
     chainWebpack: config => {
-
-        config.optimization
-            .splitChunks(false)
 
         config
             .plugin('BundleTracker')
