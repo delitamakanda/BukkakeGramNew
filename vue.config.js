@@ -1,16 +1,16 @@
 var BundleTracker = require("webpack-bundle-tracker");
 
-var DEPLOYMENT_PATH = '/static/dist/';
+var DEPLOYMENT_PATH = '/';
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : 'http://localhost:8080/',
-    outputDir: process.env.NODE_ENV === 'production' ? '../static/dist/' : './dist',
+    publicPath: process.env.NODE_ENV === 'production' ? DEPLOYMENT_PATH : '',
+    outputDir: './dist',
 
     chainWebpack: config => {
 
         config
             .plugin('BundleTracker')
-            .use(BundleTracker, [{path: __dirname, filename: '../frontend/webpack-stats.json'}])
+            .use(BundleTracker, [{path: __dirname, filename: './webpack-stats.json'}])
 
         config.resolve.alias
             .set('__STATIC__', 'static')
@@ -24,4 +24,4 @@ module.exports = {
             .https(false)
             .headers({"Access-Control-Allow-Origin": ["\*"]})
     }
-};
+}
