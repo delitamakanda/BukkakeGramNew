@@ -23,7 +23,7 @@ module.exports = {
             .hotOnly(true)
             .watchOptions({poll: 1000})
             .https(false)
-            .headers({"Access-Control-Allow-Origin": ["\*"]})
+            .headers({"Access-Control-Allow-Origin": ["*"]})
             .proxy({
                 '/': {
                     target: 'http://localhost:8000/'
