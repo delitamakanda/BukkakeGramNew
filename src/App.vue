@@ -26,6 +26,7 @@ import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 export default {
   data() {
     return {
+      title: '',
       menu: [
         {
           href: '/',
@@ -72,7 +73,9 @@ export default {
     onToggleCollapse (collapsed) {
       this.collapsed = collapsed
     },
-    onItemClick (/*event, item*/) {
+    onItemClick (event, item) {
+      event.preventDefault()
+      this.title = item.title;
       // console.log('onItemClick')
       // console.log(event)
       // console.log(item)
