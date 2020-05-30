@@ -1,20 +1,45 @@
+from django.db import IntegrityError
+from django.utils.translation import ugettext as _
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from rest_framework.authtoken.models import Token
 
-from django.contrib.auth.models import User
+User = get_user_model()
 
-class UserSerializer(serializers.ModelSerializer):
+
+class SignupSerializer(serializers.ModelSerializer):
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password',)
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = [
+            'id',
+            'username', 
+            'email', 
+            'password', 
+            'password2',
+        ]
+        extra_kwargs = {
+            'password': {'write_only': True},
+        }
 
     def create(self, validated_data):
-        user = User(
-            email=validated_data['email'],
-            username=validated_data['username']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        Token.objects.create(user=user)
-        return user
+        email = validated_data.get('email')
+        username = validated_data.get('username')
+        password = validated_data.get('password')
+
+        try:
+            user = User(username=username, email=email)
+            user.set_password(password)
+            user.save()
+            return user
+        except IntegrityError as e:
+            raise ValidationError({ 'non_field_errors': [_('Username / Email has been already registered. Try again')]})
+
+    def validate(self, data):
+        pw = data.get('password')
+        pw2 = data.pop('password2')
+        if pw != pw2:
+            raise serializers.ValidationError(_('Passwords does not match'))
+        return data
+
+
