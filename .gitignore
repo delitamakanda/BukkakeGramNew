@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 # /dist
-bukkakegram/
+bukkakegram
 .env
 db.sqlite3
 __pycache__/
