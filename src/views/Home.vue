@@ -1,6 +1,7 @@
 <template>
 <div id="demo">
   <div class='app-phone'>
+  <bukkake-header :user="{ id: 1, username: 'delitamakanda'}" />
     <div class='phone-header'>
       <a class='cancel-cta'
           v-if='step === 2 || step === 3'
@@ -48,6 +49,7 @@
 </template>
 
 <script>
+import Header from '../components/Header';
 import Content from '../components/Content';
 
 import posts from '../data/posts';
@@ -109,6 +111,7 @@ export default {
   },
   components: {
     'bukake-content': Content,
+    'bukkake-header': Header
   }
 }
 </script>

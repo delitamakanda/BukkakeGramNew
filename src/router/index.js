@@ -6,26 +6,25 @@ import About from '../views/About'
 import Login from '../views/Login'
 import Register from '../views/Register'
 import Profile from '../views/Profile'
+import Unknown from '../views/404'
 
 Vue.use(VueRouter)
 
 function secureAccess(to, from, next) {
-  let isAuthenticated;
-  if (localStorage.getItem('token')) {
-    isAuthenticated = true;
-  } else {
-    isAuthenticated = false;
-  }
+  let isAuthenticated = localStorage.getItem('token');
   if (isAuthenticated) {
     next()
   } else {
-    next('/sign-in')
+    next({
+      path: '/sign-in',
+      query: { redirect: to }
+    })
   }
 }
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
     beforeEnter: secureAccess
@@ -61,11 +60,17 @@ const routes = [
     component: Profile,
     beforeEnter: secureAccess
   },
+  {
+    path: '/404',
+    name: '404',
+    component: Unknown
+  },
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 const router = new VueRouter({
   history: true,
-  mode: 'history',
+  mode: 'hash',
   routes
 })
 

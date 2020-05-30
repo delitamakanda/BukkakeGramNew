@@ -5,9 +5,9 @@
       <div>
         <router-view/>
       </div>
-      <sidebar-menu 
+      <sidebar-menu
       :menu="menu"
-      :theme="'white-theme'"
+      :theme="'dark-theme'"
       :collapsed="collapsed"
       @toggle-collapse="onToggleCollapse"
       @item-click="onItemClick">
@@ -29,12 +29,24 @@ export default {
       title: '',
       menu: [
         {
-          href: '/',
+          href: '/home',
           title: 'Home',
           icon: {
             element: 'font-awesome-icon',
             attributes: {
               icon: 'images',
+              size: 'lg'
+            },
+            text: ''
+          }
+        },
+        {
+          href: '/chat',
+          title: 'Chatbox',
+          icon: {
+            element: 'font-awesome-icon',
+            attributes: {
+              icon: 'comment-dots',
               size: 'lg'
             },
             text: ''
@@ -52,20 +64,9 @@ export default {
             text: ''
           }
         },
-        {
-          href: '/chat',
-          title: 'Chatbox',
-          icon: {
-            element: 'font-awesome-icon',
-            attributes: {
-              icon: 'comment-dots',
-              size: 'lg'
-            },
-            text: ''
-          }
-        }
       ],
       collapsed: true,
+      renderComponent: true,
 
     }
   },
@@ -73,13 +74,10 @@ export default {
     onToggleCollapse (collapsed) {
       this.collapsed = collapsed
     },
-    onItemClick (event, item) {
+    onItemClick (event, /*item*/) {
       event.preventDefault()
-      this.title = item.title;
-      // console.log('onItemClick')
-      // console.log(event)
       // console.log(item)
-    }
+    },
   },
   components: {
     SidebarMenu
