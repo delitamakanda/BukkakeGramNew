@@ -3,6 +3,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from registration.models import Profile
+
 User = get_user_model()
 
 
@@ -31,9 +33,10 @@ class SignupSerializer(serializers.ModelSerializer):
             user = User(username=username, email=email)
             user.set_password(password)
             user.save()
+            Profile.objects.create(user=user)
             return user
         except IntegrityError as e:
-            raise ValidationError({ 'non_field_errors': [_('Username / Email has been already registered. Try again')]})
+            raise serializers.ValidationError({ 'non_field_errors': [_('Username / Email has been already registered. Try again')]})
 
     def validate(self, data):
         pw = data.get('password')
@@ -41,5 +44,22 @@ class SignupSerializer(serializers.ModelSerializer):
         if pw != pw2:
             raise serializers.ValidationError(_('Passwords does not match'))
         return data
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = ('user', 'id', 'date_of_birth', 'photo', 'bio',)
+
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'date_joined', 'first_name', 'last_name',)
 
 
