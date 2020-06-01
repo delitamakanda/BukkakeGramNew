@@ -29,7 +29,7 @@ export default {
       title: '',
       menu: [
         {
-          href: '/home',
+          href: '/',
           title: 'Home',
           icon: {
             element: 'font-awesome-icon',

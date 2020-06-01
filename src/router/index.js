@@ -24,7 +24,7 @@ function secureAccess(to, from, next) {
 
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
     component: Home,
     beforeEnter: secureAccess

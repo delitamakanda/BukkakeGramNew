@@ -1,7 +1,7 @@
 <template>
 <div id="demo">
   <div class='app-phone'>
-  <bukkake-header :user="{ id: 1, username: 'delitamakanda'}" />
+  <bukkake-header :user="user" />
     <div class='phone-header'>
       <a class='cancel-cta'
           v-if='step === 2 || step === 3'
@@ -56,6 +56,7 @@ import posts from '../data/posts';
 import filters from '../data/filters';
 
 import EventBus from '../event-bus';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
@@ -68,6 +69,9 @@ export default {
       selectedFilter: '',
       caption: '',
     };
+  },
+  computed: {
+    ...mapGetters('auth', ['user']),
   },
   created() {
     EventBus.$on('filter-selected', (evt) => {
