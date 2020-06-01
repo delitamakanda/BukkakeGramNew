@@ -14,11 +14,12 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = SignupSerializer
 
 
-class ProfileApiView(generics.CreateAPIView):
+class ProfileApiView(generics.RetrieveUpdateAPIView):
     authentication_classes = []
     permission_classes = []
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
+    lookup_field = ('user__pk')
 
 
 class CustomAuthToken(views.ObtainAuthToken):

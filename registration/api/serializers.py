@@ -46,7 +46,15 @@ class SignupSerializer(serializers.ModelSerializer):
         return data
 
 
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'date_joined', 'first_name', 'last_name',)
+
+
 class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Profile
@@ -56,10 +64,5 @@ class ProfileSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class UserSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'date_joined', 'first_name', 'last_name',)
 
 
