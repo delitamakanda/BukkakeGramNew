@@ -53,15 +53,19 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'date_joined', 'first_name', 'last_name',)
 
 
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
+
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('user', 'id', 'date_of_birth', 'photo', 'bio',)
+        fields = ('id', 'date_of_birth', 'photo', 'bio',)
 
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+
+    # def update(self, instance, validated_data):
+        # return super().update(instance, validated_data)
 
 
 

@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-from rest_framework import generics, views, status
+from rest_framework import generics, views, status, parsers
 from rest_framework.response import Response
 from rest_framework.authtoken import views, models
 from registration.api.serializers import SignupSerializer, ProfileSerializer, UserSerializer
@@ -14,10 +14,19 @@ class UserCreateView(generics.CreateAPIView):
     serializer_class = SignupSerializer
 
 
+class UserApiView(generics.RetrieveUpdateAPIView):
+    authentication_classes = []
+    permission_classes = []
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+    lookup_field = ('pk')
+
+
 class ProfileApiView(generics.RetrieveUpdateAPIView):
     authentication_classes = []
     permission_classes = []
     serializer_class = ProfileSerializer
+    parser_classes = (parsers.MultiPartParser, parsers.FileUploadParser,)
     queryset = Profile.objects.all()
     lookup_field = ('user__pk')
 
