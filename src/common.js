@@ -6,7 +6,8 @@ export const baseActionApiUrl = host + 'api-actions/';
 
 export const loginUrl = baseAuthApiUrl + 'login/';
 export const signupUrl = baseAuthApiUrl + 'signup/';
-export const profileUrl = (userId) => baseAuthApiUrl + `profile/${userId}`;
+export const userUrl = (userId) => baseAuthApiUrl + `user/${userId}/`;
+export const profileUrl = (userId) => baseAuthApiUrl + `profile/${userId}/`;
 export const bukkakesUrl = baseApiUrl + 'bukkakes/';
 export const bukkakeUrl = (id) => baseApiUrl + `bukkakes/${id}`;
 

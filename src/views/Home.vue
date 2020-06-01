@@ -1,7 +1,7 @@
 <template>
 <div id="demo">
   <div class='app-phone'>
-  <bukkake-header :user="user" />
+  <bukkake-header :user="user" :infos="profile" />
     <div class='phone-header'>
       <a class='cancel-cta'
           v-if='step === 2 || step === 3'
@@ -71,7 +71,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['user']),
+    ...mapGetters('auth', ['user', 'profile']),
   },
   created() {
     EventBus.$on('filter-selected', (evt) => {
