@@ -64,8 +64,9 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ('id', 'date_of_birth', 'photo', 'bio',)
 
 
-    # def update(self, instance, validated_data):
-        # return super().update(instance, validated_data)
+    def update(self, instance, validated_data):
+        return super().update(instance, validated_data)
+
 
 
 

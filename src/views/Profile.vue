@@ -25,13 +25,14 @@
         </div>
     </form>
     {{ profile }}
-    <form action="" class="form-horizontal" enctype="multipart/form-data">
+    <form action="" class="form-horizontal">
         <div class="form-group row" v-for="(val,key) in profileForm" :key="key">
           <label for="" class="col-3 col-form-label text-right">{{ key | unCamelCase(key)}} : </label>
           <div class="col-6">
             <input class="form-control"
                    :type="profileForm[key].type"
                    v-model="profileForm[key].value"
+                   @change="handleFileUpload($event)"
                    @keyup.enter.prevent="update"
                    @keyup="clear(key)">
             <p class="small text-danger" v-if="errors[key]">{{errors[key]}}</p>
@@ -52,6 +53,7 @@
 <script>
 import Header from '../components/Header'
 import { mapGetters, mapActions, mapState } from 'vuex'
+import { format } from 'date-fns'
 export default {
   data() {
     return {
@@ -79,18 +81,27 @@ export default {
           type: 'date'
         },
         photo: {
-          value: '',
+          value: null,
           type: 'file'
         },
         bio: {
           value: '',
           type: 'text'
         }
-      },
-      image: ''
+      }
     }
   },
   created() { },
+  mounted() {
+    this.userForm.username.value = this.user.username;
+    this.userForm.email.value = this.user.email;
+    this.userForm.first_name.value = this.user.first_name;
+    this.userForm.last_name.value = this.user.last_name;
+
+    this.profileForm.date_of_birth.value = this.profile.date_of_birth;
+    // this.profileForm.photo.value = this.profile.photo;
+    this.profileForm.bio.value = this.profile.bio;
+  },
   computed: {
     ...mapGetters('auth', ['user', 'profile']),
     ...mapState('auth', ['errors']),
@@ -110,7 +121,7 @@ export default {
     },
     update() {
       const data = {
-        date_of_birth: this.profileForm.date_of_birth.value,
+        date_of_birth: format(new Date(this.profileForm.date_of_birth.value), 'yyyy-MM-dd'),
         photo: this.profileForm.photo.value,
         bio: this.profileForm.bio.value,
         userId: this.user.id
@@ -121,42 +132,30 @@ export default {
     clear(field) {
       this.clearErrors(field)
     },
-    onFileChange(e) {
-      // console.log(e)
+    handleFileUpload(e) {
       const files = e.target.files || e.dataTransfer.files;
-      if (!files.length) { return; }
-      // console.log(files[0])
-      this.image = files[0];
-      // this.createImage(files[0]);
+      if (files === null || files || files === undefined) { return; }
+      this.profileForm.photo.value = files[0];
     },
-    createImage(file) {
-      // const image = new Image();
-      const reader = new FileReader();
-      const vm = this;
-
-      reader.onload = (e) => {
-        vm.image = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
-    renderField(field) {
+    renderUserField(field) {
       this.userForm.username.value = field.username;
       this.userForm.email.value = field.email;
       this.userForm.first_name.value = field.first_name;
       this.userForm.last_name.value = field.last_name;
+
     },
-    render(field) {
+    renderProfileField(field) {
       this.profileForm.date_of_birth.value = field.date_of_birth;
-      this.profileForm.photo.value = field.photo;
+      // this.profileForm.photo.value = field.photo;
       this.profileForm.bio.value = field.bio;
     }
   },
   watch: {
     user(val) {
-      this.renderField(val);
+      this.renderUserField(val);
     },
     profile(val) {
-      this.render(val);
+      this.renderProfileField(val);
     }
   },
   components: {

@@ -103,16 +103,16 @@ export const actions = {
         try {
             const config = {
                 headers: {
-                    // 'Content-type':'multipart/form-data',
+                    'Content-type':'multipart/form-data',
                     // 'Content-Disposition': 'attachment; filename=file',
                     // 'filename': 'file'
                 }
             }
-            axios.put(profileUrl(data.userId), {
-                'date_of_birth': data.date_of_birth,
-                'photo': data.photo,
-                'bio': data.bio,
-            }, config)
+            let formData = new FormData();
+            formData.append('photo', data.photo);
+            formData.append('date_of_birth', data.date_of_birth);
+            formData.append('bio', data.bio);
+            axios.put(profileUrl(data.userId), formData, config)
             .then(response => {
                 // console.log(response.data)
                 const data = response.data;

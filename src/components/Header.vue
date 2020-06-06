@@ -7,7 +7,7 @@
       <div>{{ user.username }}</div>
       <img
         v-if="infos.photo"
-        :src="infos.photo"
+        :src="'/media/' + infos.photo"
         class="header-menu-photo"
         alt="avatar"
       />
