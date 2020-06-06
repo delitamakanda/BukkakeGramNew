@@ -5,6 +5,7 @@ bukkakegram
 .env
 db.sqlite3
 __pycache__/
+media/
 
 # local env files
 .env.local
