@@ -1,80 +1,71 @@
 <template>
-<div id="demo">
-  <div class='app-phone'>
-  <bukkake-header :user="user" :infos="profile" />
-    <div class='phone-header'>
-      <a class='cancel-cta'
-          v-if='step === 2 || step === 3'
-          @click='goToHome'>
+  <div id="demo">
+    <div class="app-phone">
+      <bukkake-header :user="user" :infos="profile" />
+      <div class="phone-header">
+        <a class="cancel-cta" v-if="step === 2 || step === 3" @click="goToHome">
           Cancel
-      </a>
-      <a class='next-cta'
-          v-if='step === 2'
-        @click='step++'>
-          Next
-      </a>
-      <a class='next-cta'
-          v-if='step === 3'
-        @click='sharePost'>
-          Share
-      </a>
-    </div>
-    <bukake-content
-      :step='step'
-      :posts='posts'
-      :filters='filters'
-      :image='image'
-      :selectedFilter='selectedFilter'
-      v-model='caption'
-    />
-    <div class='phone-footer'>
-      <div class='home-cta' @click='goToHome'>
-      <font-awesome-icon icon="home" size="lg"></font-awesome-icon>
+        </a>
+        <a class="next-cta" v-if="step === 2" @click="step++"> Next </a>
+        <a class="next-cta" v-if="step === 3" @click="sharePost"> Share </a>
       </div>
-      <div class='upload-cta'>
-        <input type='file'
-          name='file'
-          id='file'
-          class='inputfile'
-          @change='uploadImage'
-          :disabled='step !== 1'
-        />
-        <label for='file'>
-          <font-awesome-icon icon="plus-square" size="lg"></font-awesome-icon>
-        </label>
+      <bukake-content
+        :step="step"
+        :posts="posts"
+        :filters="filters"
+        :image="image"
+        :selectedFilter="selectedFilter"
+        v-model="caption"
+      />
+      <div class="phone-footer">
+        <div class="home-cta" @click="goToHome">
+          <font-awesome-icon icon="home" size="lg"></font-awesome-icon>
+        </div>
+        <div class="upload-cta">
+          <input
+            type="file"
+            name="file"
+            id="file"
+            class="inputfile"
+            @change="uploadImage"
+            :disabled="step !== 1"
+          />
+          <label for="file">
+            <font-awesome-icon icon="plus-square" size="lg"></font-awesome-icon>
+          </label>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
-import Header from '../components/Header';
-import Content from '../components/Content';
+import Header from "../components/Header";
+import Content from "../components/Content";
 
-import posts from '../data/posts';
-import filters from '../data/filters';
+import posts from "../data/posts";
+import filters from "../data/filters";
 
-import EventBus from '../event-bus';
-import { mapGetters } from 'vuex';
+import EventBus from "../event-bus";
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       step: 1,
       posts,
       filters,
-      image: '',
-      selectedFilter: '',
-      caption: '',
+      image: "",
+      selectedFilter: "",
+      caption: "",
     };
   },
   computed: {
-    ...mapGetters('auth', ['user', 'profile']),
+    ...mapGetters("auth", ["user", "profile"]),
   },
   created() {
-    EventBus.$on('filter-selected', (evt) => {
+    EventBus.$on("filter-selected", (evt) => {
       this.selectedFilter = evt.filter;
     });
   },
@@ -91,13 +82,13 @@ export default {
       };
 
       // To enable reuploading of same files in Chrome
-      document.querySelector('#file').value = '';
+      document.querySelector("#file").value = "";
     },
     sharePost() {
       const post = {
-        username: 'fullstack_vue',
+        username: "fullstack_vue",
         userImage:
-          'https://s3-us-west-2.amazonaws.com/s.cdpn.io/1211695/vue_lg_bg.png',
+          "https://s3-us-west-2.amazonaws.com/s.cdpn.io/1211695/vue_lg_bg.png",
         postImage: this.image,
         likes: 0,
         caption: this.caption,
@@ -107,17 +98,17 @@ export default {
       this.goToHome();
     },
     goToHome() {
-      this.image = '';
-      this.selectedFilter = '';
-      this.caption = '';
+      this.image = "";
+      this.selectedFilter = "";
+      this.caption = "";
       this.step = 1;
     },
   },
   components: {
-    'bukake-content': Content,
-    'bukkake-header': Header
-  }
-}
+    "bukake-content": Content,
+    "bukkake-header": Header
+  },
+};
 </script>
 
 <style lang="scss">
